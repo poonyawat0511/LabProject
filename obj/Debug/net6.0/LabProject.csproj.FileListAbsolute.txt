@@ -1,0 +1,15 @@
+D:\LabProject\bin\Debug\net6.0\LabProject.exe
+D:\LabProject\bin\Debug\net6.0\LabProject.deps.json
+D:\LabProject\bin\Debug\net6.0\LabProject.runtimeconfig.json
+D:\LabProject\bin\Debug\net6.0\LabProject.dll
+D:\LabProject\bin\Debug\net6.0\LabProject.pdb
+D:\LabProject\obj\Debug\net6.0\LabProject.csproj.AssemblyReference.cache
+D:\LabProject\obj\Debug\net6.0\LabProject.GeneratedMSBuildEditorConfig.editorconfig
+D:\LabProject\obj\Debug\net6.0\LabProject.AssemblyInfoInputs.cache
+D:\LabProject\obj\Debug\net6.0\LabProject.AssemblyInfo.cs
+D:\LabProject\obj\Debug\net6.0\LabProject.csproj.CoreCompileInputs.cache
+D:\LabProject\obj\Debug\net6.0\LabProject.dll
+D:\LabProject\obj\Debug\net6.0\refint\LabProject.dll
+D:\LabProject\obj\Debug\net6.0\LabProject.pdb
+D:\LabProject\obj\Debug\net6.0\LabProject.genruntimeconfig.cache
+D:\LabProject\obj\Debug\net6.0\ref\LabProject.dll
