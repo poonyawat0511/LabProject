@@ -1,99 +1,166 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Reflection;
 namespace app
 {
-    class program 
+    class program
     {
-public static void Main(string[] agrs)
-{
-    int a , b ,c  ;
-    
-    Console.Write("How many do you want to booking table : ");
-    a = Convert.ToInt32(Console.ReadLine());
-Console.Write("Shabu (1)/ butter roast (2) / All (3): ");
- b = Convert.ToInt32(Console.ReadLine());
- 
- if (b==1) // if else
- {
-Console.WriteLine("You select Shabu");
+        public static void Main(string[] agrs)
+        {
+            string name;
+            int Book, Mode, Seat;
+            int SeatPerCost = 299; // 1 : 299
 
- }
- else if(b==2)
- {
-Console.WriteLine("You select butter roast");
- }
- else if(b==3)
- {
-Console.WriteLine("You select All");
- }
- else 
- {
-Console.WriteLine("You must select 1/2/3 :) ");
- }
-int choice = 7  ; // swich case 
-Console.Write("Enter day number to select the day \nsunday-saturnday (1-7): "); 
-choice = Convert.ToInt32(Console.ReadLine()); 
-switch (choice){               case 1: 
-     Console.WriteLine("Sunday");                   break;               case 2: 
-    Console.WriteLine("Monday");                   break;               case 3: 
-    Console.WriteLine("Tuesday");                   break;               case 4: 
-    Console.WriteLine("Wednesday");                   break;               case 5: 
-    Console.WriteLine("Thursday");                   break;                case 6: 
-    Console.WriteLine("Friday");                   break;               case 7: 
-    Console.WriteLine("Saturday");                   break;               default: 
-    Console.WriteLine("Invalid day");                   break; 
-                 
-            } 
-    Console.Write("How many people : ");
-     c=Convert.ToInt32(Console.ReadLine());
- Console.Write("You have "+ c + "People");
-int d = c;
-   Console.WriteLine("This is you payment : " +d*299);
-int e = 1 ;
-do // loop do while
-{
-Console.WriteLine("The time period you will choose " + e );
-e++ ;
-}while (e<=3);
-e= Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter name : ");
+            name = Convert.ToString(Console.ReadLine());
+            Console.WriteLine("Your name "+name);
 
-Console.Write("You choose : ");
-if (e==1)
-{
-    Console.WriteLine("18.00 - 19.00 " );
-}
-else if (e==2 )
-{
-    Console.WriteLine("19.00 - 20.00 " );
-}
-else if (e==3)
-{
-    Console.WriteLine("20.00 - 21.00 " );
-}
-else
-{
-Console.WriteLine("No have this time" );
-}
-Console.Write("Enter you birthday here for discount : ");
-int birth=Convert.ToInt32(Console.ReadLine());
-Console.Write("This is sum your biryth for using promotion\n You can use  "+ SumBirth(birth)+"%  for a discount");
+            // >> "Choose menu"
+            Console.Write("How many do you want to booking table : ");
+            Book = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Your booking "+Book+" table ");
 
- static int SumBirth (int birth) // funtion or method 
- {
-int sum = 0;
-while (birth > 0)
-{
-int f = birth % 10;
-sum += f;
-birth /= 10;
-}
-return sum;
- }
- int g ;
- g = (d*(SumBirth(birth)%100));
- Console.WriteLine("Your dicount is : "+g );
+            do
+            {
+                Console.Write("Shabu (1)/ butter roast (2) / All (3): ");
+                Mode = Convert.ToInt32(Console.ReadLine());
+
+
+                if (Mode == 1) // if else
+                {
+                    Console.WriteLine("You select Shabu");
+                }
+                else if (Mode == 2)
+                {
+                    Console.WriteLine("You select butter roast");
+                }
+                else if (Mode == 3)
+                {
+                    Console.WriteLine("You select All");
+                }
+                else
+                {
+                    Console.WriteLine("You must select 1/2/3 🙂 ");
+                }
+            } while (Mode > 3 || Mode < 1);
+
+
+            // >> "Choose day" // Use <array> 
+            string[] Days = {
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",};
+            Console.Write("Enter day number to select the day | From monday-sunday (1-7): ");
+            int DayId = Convert.ToInt32(Console.ReadLine());
+            string SelectDay = Days.ElementAtOrDefault(DayId - 1); // out of array scope default = null
+            if (SelectDay is null)
+            {
+                Console.WriteLine("Error Invalid Day.");
+                return; // End Program...
+            }
+            else
+            {
+                Console.WriteLine("You choose to go on " + SelectDay);
+            }
+
+            // >> "How many people"
+            Console.Write("How many people : ");
+            Seat = Convert.ToInt32(Console.ReadLine());
+            Console.Write("You have  " + Seat + "People");
+
+            Console.WriteLine("This is you payment : " + Seat * 299);
+
+            // >> "Choose drink / Based on seat"
+            string[] ChoosenDrinks = new string[Seat]; // based on seat
+            string[] Drinks = { // Use <array>
+                "Water",
+                "Coke",
+                "Lemonade",
+                "No-Drink",
+            };
+            Console.WriteLine("Choose your drink");
+            for (int Index = 0; Index < Drinks.Length; Index++)
+            {
+                Console.WriteLine("{0}. {1}", Index + 1, Drinks[Index]);
+            }
+            for (int Index = 0; Index < Seat; Index++)
+            {
+                Console.Write("Seat#{0}, choose a drink: ", Index + 1);
+                int SelectDrink = int.Parse(Console.ReadLine());
+                string DrinkName = Drinks.ElementAtOrDefault(SelectDrink - 1); // out of array scope default = null
+                if (DrinkName is null)
+                {
+                    Console.WriteLine("Invaild Drink");
+                    return; // End Program...
+                }
+                else
+                {
+                    ChoosenDrinks[Index] = DrinkName; // add input data to
+                }
+            }
+            for (int Index = 0; Index < ChoosenDrinks.Length; Index++)
+            {
+                Console.WriteLine("Seat Number's {0} --> {1}", Index + 1, ChoosenDrinks[Index]);
+            }
+
+            // loop do while 
+            // >> "Choose period"
+            int Self = 1;
+            do
+            { // Use <Loop>
+                Console.WriteLine("The time period you will choose " + Self);
+                Self++;
+            } while (Self <= 3);
+            Console.WriteLine(" this is time list\n18.00 pm- 19.00 pm (1)\n19.00 pm- 20.00 pm (2)\n20.00 pm- 21.00 pm (3) ");
+            int Choice = 3;
+            Console.Write("You choose : ");
+            Choice = Convert.ToInt32(Console.ReadLine());
+            
+            switch (Choice)
+            { // Use <swtich-case>
+                case 1:
+                    Console.WriteLine("18.00 pm- 19.30 pm"); break;
+                case 2:
+                    Console.WriteLine("19.00 pm- 20.00 pm"); break;
+                case 3:
+                    Console.WriteLine("20.00 pm- 21.00 pm"); break;
+                default:
+                    Console.WriteLine("No have this time"); return; // End Program...
+            }
+
+            // funtion or method 
+
+            static int SumBirth(int birth)
+            {
+                int sum = 0;
+                while (birth > 0)
+                {
+                    int e = birth % 10;
+                    sum += e;
+                    birth /= 10;
+                }
+                return sum;
+            }
+
+            Console.Write("Enter you birthday (day/month/year) here for discount : ");  // >> "Birthday Discount"
+            int birth = Convert.ToInt32(Console.ReadLine());
+            Console.Write("This is sum your biryth for using promotion\n You can use  " + SumBirth(birth) + "%  for a discount");
+
+            float Discount;
+            Discount = (SumBirth(birth) % 100) * (Seat * SeatPerCost);
+            Console.WriteLine("\nYour discount is : " + (Discount / 100) + " bath");
+
+            // >> "Total Cost (Result)"
+            float TotalCost;
+            TotalCost = (Seat * SeatPerCost) - (Discount / 100);
+            Console.WriteLine("Your last payment : " + TotalCost + " bath");
+        }
 
     }
-    
-}
 }
